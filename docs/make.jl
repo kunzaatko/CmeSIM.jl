@@ -19,5 +19,6 @@ makedocs(;
 )
 
 deploydocs(;
-    repo="github.com/kunzaatko/CmeSIM.jl",
+    repo="github.com/kunzaatko/CmeSIM.jl.git",
+    devbranch="trunk"
 )
