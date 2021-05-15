@@ -1,5 +1,7 @@
 module CmeSIM
 
-# Write your package code here.
+include("./acquisition/mod.jl")
+
+export FluorophoreMarker, Fluorophore
 
 end
