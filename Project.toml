@@ -9,6 +9,7 @@ MAT = "23992714-dd62-5051-b70f-ba57cb901cac"
 Unitful = "1986cc42-f94f-5a68-af5c-568840ba703d"
 
 [compat]
+Unitful = "1.7"
 julia = "1"
 
 [extras]
