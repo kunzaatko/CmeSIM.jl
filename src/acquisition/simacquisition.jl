@@ -1,5 +1,6 @@
 using Images, AxisArrays
 using Base: OneTo
+using Unitful
 
 function SIMAcquisition( # {{{
     reconstructedimages::AbstractArray{T,3} where {T<:Color},
@@ -7,6 +8,7 @@ function SIMAcquisition( # {{{
     acquisitiontimes::AbstractVector{T} where {T<:Unitful.Time},
     NA,
     M,
+    marker::FluorophoreMarker,
     pixelsize::Unitful.Length,
 )
     for img in [reconstructedimages, unreconstructedimages]
@@ -30,16 +32,17 @@ function SIMAcquisition( # {{{
     reconstructedimages_axis = AxisArray(reconstructedimages, :x, :y, :time)
 
     return SIMAcquisition(
-        reconstructedimages_axis, unreconstructedimages_axis, NA, M, pixelsize
+        reconstructedimages_axis, unreconstructedimages_axis, NA, M, marker, pixelsize
     )
 end # }}}
 
-function SIMAcquisition(
+function SIMAcquisition( # {{{
     reconstructedimages::AbstractArray{T,3} where {T<:Color},
     unreconstructedimages::AbstractArray{T,3} where {T<:Color},
     acquisitiontimestep::Unitful.Time,
     NA,
     M,
+    marker::FluorophoreMarker,
     pixelsize::Unitful.Length,
 )
     return SIMAcquisition(
@@ -48,6 +51,7 @@ function SIMAcquisition(
         range(0u"s"; length=size(unreconstructedimages, 3), step=acquisitiontimestep),
         NA,
         M,
+        marker,
         pixelsize,
     )
-end
+end # }}}

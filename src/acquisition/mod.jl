@@ -19,17 +19,21 @@ struct Acquisition <: AbstractAcquisition
     pixelsize::Unitful.Length
 end
 
+include("./acquisition.jl")
+
 # TODO: Make this be generic over type of SIM acquisition like so
 # SIMAcquisition{T} where T <: AbstractSIMType <19-05-21, kunzaatko> #
 struct SIMAcquisition <: AbstractAcquisition
     "Acquired reconstructed images"
-    reconstructedimage::AxisArray{T,3} where {T<:AbstractGray}
+    reconstructedimages::AxisArray{T,3} where {T<:AbstractGray}
     "Acquired unreconstructed images stored with there acquisition times and orientations"
-    unreconstructedimage::AxisArray{T,3} where {T<:AbstractGray}
+    unreconstructedimages::AxisArray{T,3} where {T<:AbstractGray}
     "Numerical aperature"
     NA::Real
     "Magnification"
     M::Unsigned
+    "Fluorophore marker"
+    marker::FluorophoreMarker
     "Pixel size"
     pixelsize::Unitful.Length
 end
