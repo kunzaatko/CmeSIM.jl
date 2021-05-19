@@ -1,11 +1,34 @@
 using CmeSIM
 using Test
-using Unitful
+using Unitful: s, μm, nm
+using Images
 
-@testset "acquisitions.jl" begin
-    @test begin
-        flourophore = CmeSIM.dTomato
-        marker = FluorophoreMarker(flourophore)
-        marker
-    end == FluorophoreMarker(CmeSIM.dTomato, 554u"nm", 581u"nm")
+@testset "Acquisition" begin
+
+    @testset "fluorophore_marker.jl" begin
+        @test begin
+            flourophore = CmeSIM.dTomato
+            marker = FluorophoreMarker(flourophore)
+            marker
+        end == FluorophoreMarker(CmeSIM.dTomato, 554nm, 581nm)
+    end
+
+    @testset "simacquisition.jl" begin
+        @test begin
+            unreconstructedimages = load("./resources/test_unreconstructed.tiff")
+            reconstructedimages = load("./resources/test_reconstructed.tiff")
+            acquisitiontimes = range(0s, 4s, 18)
+            NA = 1.49
+            M = 109
+            pixelsize = 10μm
+            typeof(SIMAcquisition(
+                reconstructedimages,
+                unreconstructedimages,
+                acquisitiontimes,
+                NA,
+                M,
+                pixelsize,
+            )) <: CmeSIM.AbstractAcquisition
+        end
+    end
 end
