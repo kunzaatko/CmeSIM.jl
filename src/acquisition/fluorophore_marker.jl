@@ -1,5 +1,6 @@
 using Unitful
 
+# TODO: Instead of an enum, this should be a symbol, which is more natural in julia. <18-05-21, kunzaatko> #
 # @enum Fluorophore {{{
 @enum Fluorophore begin
     # [P4-3]
@@ -52,7 +53,7 @@ end
 
 # FluorophoreMarker(fluorophore::Fluorophore) {{{
 function FluorophoreMarker(fluorophore::Fluorophore)
-    if fluorophore ==  BFP::Fluorophore
+    if fluorophore == BFP::Fluorophore
         exλ = 381u"nm"
         emλ = 440u"nm"
         return FluorophoreMarker(fluorophore, exλ, emλ)
@@ -129,5 +130,3 @@ function FluorophoreMarker(fluorophore::Fluorophore)
     end
 end
 # }}}
-
-# convert(str::AbstractString, )
