@@ -8,7 +8,7 @@ abstract type AbstractAcquisition end
 
 struct Acquisition <: AbstractAcquisition
     "Acquired images"
-    image::AxisArray{T,3} where {T<:AbstractGray}
+    images::AxisArray{T,3} where {T<:AbstractGray}
     "Numerical aperature"
     NA::Real
     "Magnification"
