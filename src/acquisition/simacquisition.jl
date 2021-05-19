@@ -33,3 +33,21 @@ function SIMAcquisition( # {{{
         reconstructedimages_axis, unreconstructedimages_axis, NA, M, pixelsize
     )
 end # }}}
+
+function SIMAcquisition(
+    reconstructedimages::AbstractArray{T,3} where {T<:Color},
+    unreconstructedimages::AbstractArray{T,3} where {T<:Color},
+    acquisitiontimestep::Unitful.Time,
+    NA,
+    M,
+    pixelsize::Unitful.Length,
+)
+    return SIMAcquisition(
+        reconstructedimages,
+        unreconstructedimages,
+        range(0u"s"; length=size(unreconstructedimages, 3), step=acquisitiontimestep),
+        NA,
+        M,
+        pixelsize,
+    )
+end
