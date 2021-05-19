@@ -15,7 +15,9 @@ using Images
 
     @testset "simacquisition.jl" begin
         unreconstructedimages = load("./resources/test_unreconstructed.tiff")
+        unreconstructedimages_rgb = load("./resources/test_unreconstructed_rgb.tiff")
         reconstructedimages = load("./resources/test_reconstructed.tiff")
+        reconstructedimages_rgb = load("./resources/test_reconstructed_rgb.tiff")
         NA = 1.49
         M = 109
         marker = FluorophoreMarker(CmeSIM.BFP)
@@ -24,8 +26,8 @@ using Images
         @test begin
             acquisitiontimes = range(0s, 4s, 18)
             typeof(SIMAcquisition(
-                reconstructedimages,
-                unreconstructedimages,
+                reconstructedimages_rgb,
+                unreconstructedimages_rgb,
                 acquisitiontimes,
                 NA,
                 M,
@@ -43,6 +45,7 @@ using Images
 
     @testset "acquisition.jl" begin
         images = load("./resources/test_unreconstructed.tiff")
+        images_rgb = load("./resources/test_unreconstructed_rgb.tiff")
         NA = 1.49
         M = 109
         marker = FluorophoreMarker(CmeSIM.BFP)
@@ -55,7 +58,7 @@ using Images
         end
 
         @test begin
-            typeof(Acquisition(images, 0.1s, NA, M, marker, pixelsize)) ==
+            typeof(Acquisition(images_rgb, 0.1s, NA, M, marker, pixelsize)) ==
             Acquisition
         end
 

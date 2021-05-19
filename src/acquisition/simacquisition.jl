@@ -11,10 +11,12 @@ function SIMAcquisition( # {{{
     marker::FluorophoreMarker,
     pixelsize::Unitful.Length,
 )
-    for img in [reconstructedimages, unreconstructedimages]
-        if !(eltype(img) <: AbstractAGray)
-            img = Gray.(img)
-        end
+    if !(eltype(reconstructedimages) <: AbstractGray)
+        reconstructedimages = Gray.(reconstructedimages)
+    end
+
+    if !(eltype(unreconstructedimages) <: AbstractGray)
+        unreconstructedimages = Gray.(unreconstructedimages)
     end
 
     # FIX: Add check for acquisition times having the same size <19-05-21, kunzaatko> #
