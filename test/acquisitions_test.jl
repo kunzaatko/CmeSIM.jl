@@ -11,6 +11,10 @@ using Images
             marker = FluorophoreMarker(flourophore)
             marker == FluorophoreMarker(CmeSIM.dTomato, 554nm, 581nm)
         end
+
+         @test begin
+             all([typeof(FluorophoreMarker(ins)) for ins in instances(CmeSIM.Fluorophore)]  .== FluorophoreMarker)
+         end
     end
 
     @testset "simacquisition.jl" begin

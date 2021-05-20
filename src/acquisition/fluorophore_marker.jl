@@ -40,6 +40,10 @@ using Unitful
     mNeonGreen
     # CyOFP1 is a basic (constitutively fluorescent) long stokes shift fluorescent protein published in 2016, derived from Entacmaea quadricolor. It is reported to be a very rapidly-maturing monomer with moderate acid sensitivity.
     cyofp1
+    # mScarlet-I is a basic (constitutively fluorescent) red fluorescent protein published in 2016, derived from synthetic construct. It is reported to be a rapidly-maturing monomer with moderate acid sensitivity.
+    mScarlet_I # FCHO2
+    # mScarlet is a basic (constitutively fluorescent) red fluorescent protein published in 2016, derived from synthetic construct. It has moderate acid sensitivity.
+    mScarlet
 end
 # }}}
 
@@ -126,6 +130,16 @@ function FluorophoreMarker(fluorophore::Fluorophore)
     if fluorophore == cyofp1::Fluorophore
         exλ = 497u"nm"
         emλ = 589u"nm"
+        return FluorophoreMarker(fluorophore, exλ, emλ)
+    end
+    if fluorophore == mScarlet_I::Fluorophore
+        exλ = 569u"nm"
+        emλ = 593u"nm"
+        return FluorophoreMarker(fluorophore, exλ, emλ)
+    end
+    if fluorophore == mScarlet::Fluorophore
+        exλ = 569u"nm"
+        emλ = 594u"nm"
         return FluorophoreMarker(fluorophore, exλ, emλ)
     end
 end
