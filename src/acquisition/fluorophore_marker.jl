@@ -127,7 +127,7 @@ function FluorophoreMarker(fluorophore::Fluorophore)
         emλ = 517u"nm"
         return FluorophoreMarker(fluorophore, exλ, emλ)
     end
-    if fluorophore == cyofp1::Fluorophore
+    if fluorophore == CyOFP1::Fluorophore
         exλ = 497u"nm"
         emλ = 589u"nm"
         return FluorophoreMarker(fluorophore, exλ, emλ)
