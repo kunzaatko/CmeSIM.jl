@@ -39,7 +39,7 @@ using Unitful
     # mNeonGreen is a basic (constitutively fluorescent) green/yellow fluorescent protein published in 2013, derived from Branchiostoma lanceolatum. It is reported to be a very rapidly-maturing monomer with moderate acid sensitivity.
     mNeonGreen
     # CyOFP1 is a basic (constitutively fluorescent) long stokes shift fluorescent protein published in 2016, derived from Entacmaea quadricolor. It is reported to be a very rapidly-maturing monomer with moderate acid sensitivity.
-    cyofp1
+    CyOFP1
     # mScarlet-I is a basic (constitutively fluorescent) red fluorescent protein published in 2016, derived from synthetic construct. It is reported to be a rapidly-maturing monomer with moderate acid sensitivity.
     mScarlet_I # FCHO2
     # mScarlet is a basic (constitutively fluorescent) red fluorescent protein published in 2016, derived from synthetic construct. It has moderate acid sensitivity.
