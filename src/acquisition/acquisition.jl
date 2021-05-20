@@ -2,6 +2,19 @@ using Images, AxisArrays
 using Base: OneTo
 using Unitful
 
+struct Acquisition <: AbstractAcquisition # {{{
+    "Acquired images"
+    images::AxisArray{T,3} where {T<:AbstractGray}
+    "Numerical aperature"
+    NA::Real
+    "Magnification"
+    M::Integer
+    "Fluorophore marker"
+    marker::FluorophoreMarker
+    "Pixel size"
+    pixelsize::Unitful.Length
+end # }}}
+
 function Acquisition( # {{{
     images::AbstractArray{T,3} where {T<:Color},
     acquisitiontimes::AbstractVector{T} where {T<:Unitful.Time},
@@ -39,3 +52,5 @@ function Acquisition( # {{{
         pixelsize,
     )
 end # }}}
+
+times(acquisition::AbstractAcquisition) = acquisition.images[Axis{:time}].val

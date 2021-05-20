@@ -1,8 +1,9 @@
 module CmeSIM
 
-include("./tracks/mod.jl")
-include("./acquisition/mod.jl")
+export Track, SIMTrack, FluorophoreMarker, Fluorophore, Acquisition, SIMAcquisition, times
 
-export FluorophoreMarker, Fluorophore, Acquisition, SIMAcquisition
+include("./marker/mod.jl")
+include("./acquisition/mod.jl")
+include("./tracks/mod.jl")
 
 end

@@ -2,6 +2,23 @@ using Images, AxisArrays
 using Base: OneTo
 using Unitful
 
+# TODO: Make this be generic over type of SIM acquisition like so
+# SIMAcquisition{T} where T <: AbstractSIMType <19-05-21, kunzaatko> #
+struct SIMAcquisition <: AbstractAcquisition # {{{
+    "Acquired reconstructed images"
+    reconstructedimages::AxisArray{T,3} where {T<:AbstractGray}
+    "Acquired unreconstructed images stored with there acquisition times and orientations"
+    unreconstructedimages::AxisArray{T,3} where {T<:AbstractGray}
+    "Numerical aperature"
+    NA::Real
+    "Magnification"
+    M::Unsigned
+    "Fluorophore marker"
+    marker::FluorophoreMarker
+    "Pixel size"
+    pixelsize::Unitful.Length
+end # }}}
+
 function SIMAcquisition( # {{{
     reconstructedimages::AbstractArray{T,3} where {T<:Color},
     unreconstructedimages::AbstractArray{T,3} where {T<:Color},
@@ -56,4 +73,15 @@ function SIMAcquisition( # {{{
         marker,
         pixelsize,
     )
+end # }}}
+
+function times(acquisition::SIMAcquisition; images=:unreconstructedimages) # {{{
+    if images == :unreconstructedimages
+        return acquisition.unreconstructedimages[Axis{:time}].val
+    elseif images == :reconstructedimages
+        return acquisition.reconstructedimages[Axis{:time}].val
+    else
+        # TODO: error handling when not reconstructed or unreconstructed <20-05-21, kunzaatko> #
+        return error("Must be reconstructed or unreconstructed")
+    end
 end # }}}

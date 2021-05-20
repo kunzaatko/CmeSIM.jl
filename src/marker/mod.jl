@@ -1,4 +1,7 @@
+module FluorophoreMarkers
 using Unitful
+
+export FluorophoreMarker, Fluorophore
 
 # TODO: Instead of an enum, this should be a symbol, which is more natural in julia. <18-05-21, kunzaatko> #
 # @enum Fluorophore {{{
@@ -144,3 +147,5 @@ function FluorophoreMarker(fluorophore::Fluorophore)
     end
 end
 # }}}
+
+end
