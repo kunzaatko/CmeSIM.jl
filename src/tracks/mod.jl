@@ -7,21 +7,21 @@ using ..Acquisitions
 abstract type AbstractTrack end
 
 struct Track <: AbstractTrack # {{{
-    x::AbstractVector{T} where {T<:Real}
-    y::AbstractVector{T} where {T<:Real}
-    view::AxisArray{A,1} where {A<:OffsetArray{T}} where {T<:AbstractGray}
+    x::AbstractVector{<:Real}
+    y::AbstractVector{<:Real}
+    view::AxisArray{A,1} where {A<:OffsetArray{<:AbstractGray}}
 end # }}}
 
 # TODO: Should be generic over the SIMacquisition type <20-05-21, kunzaatko> #
 struct SIMTrack <: AbstractTrack # {{{
-    x::AbstractVector{T} where {T<:Real}
-    y::AbstractVector{T} where {T<:Real}
-    view::AxisArray{A,1} where {A<:OffsetArray{T}} where {T<:AbstractGray}
-    view_reconstructed::AxisArray{A,1} where {A<:OffsetArray{T}} where {T<:AbstractGray}
+    x::AbstractVector{<:Real}
+    y::AbstractVector{<:Real}
+    view::AxisArray{A,1} where {A<:OffsetArray{<:AbstractGray}}
+    view_reconstructed::AxisArray{A,1} where {A<:OffsetArray{<:AbstractGray}}
 end # }}}
 
 function Track( # {{{
-    x, y, acquisition::Acquisition, times::AbstractVector{T} where {T<:Unitful.Time}
+    x, y, acquisition::Acquisition, times::AbstractVector{<:Unitful.Time}
 )
     # TODO: Add check for times, x and y having the same lengths <20-05-21, kunzaatko> #
     x_offsets, y_offsets = round.(Integer, x), round.(Integer, y)
@@ -37,12 +37,12 @@ function Track( # {{{
     return Track(x, y, view)
 end # }}}
 
-function Track(x, y, acquisition::Acquisition, frames::AbstractVector{T} where {T<:Integer})
+function Track(x, y, acquisition::Acquisition, frames::AbstractVector{<:Integer})
     return Track(x, y, acquisition, times(acquisition)[frames])
 end
 
 function SIMTrack( # {{{
-    x, y, acquisition::SIMAcquisition, times::AbstractVector{T} where {T<:Unitful.Time}
+    x, y, acquisition::SIMAcquisition, times::AbstractVector{<:Unitful.Time}
 )
     x_offsets, y_offsets = round.(Integer, x), round.(Integer, y)
     view = AxisArray(
@@ -62,9 +62,7 @@ function SIMTrack( # {{{
     return SIMTrack(x, y, view, view_reconstructed)
 end # }}}
 
-function SIMTrack(
-    x, y, acquisition::SIMAcquisition, frames::AbstractVector{T} where {T<:Integer}
-)
+function SIMTrack(x, y, acquisition::SIMAcquisition, frames::AbstractVector{<:Integer})
     return SIMTrack(x, y, acquisition, times(acquisition)[frames])
 end
 

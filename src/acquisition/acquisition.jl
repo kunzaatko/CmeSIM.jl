@@ -1,10 +1,10 @@
 using Images, AxisArrays
 using Base: OneTo
-using Unitful
+using Unitful: Time, Length, s
 
 struct Acquisition <: AbstractAcquisition # {{{
     "Acquired images"
-    images::AxisArray{T,3} where {T<:AbstractGray}
+    images::AxisArray{<:AbstractGray,3}
     "Numerical aperature"
     NA::Real
     "Magnification"
@@ -12,16 +12,16 @@ struct Acquisition <: AbstractAcquisition # {{{
     "Fluorophore marker"
     marker::FluorophoreMarker
     "Pixel size"
-    pixelsize::Unitful.Length
+    pixelsize::Length
 end # }}}
 
 function Acquisition( # {{{
-    images::AbstractArray{T,3} where {T<:Color},
-    acquisitiontimes::AbstractVector{T} where {T<:Unitful.Time},
+    images::AbstractArray{<:Color,3},
+    acquisitiontimes::AbstractVector{<:Time},
     NA,
     M,
     marker::FluorophoreMarker,
-    pixelsize::Unitful.Length,
+    pixelsize::Length,
 )
     if !(eltype(images) <: AbstractGray)
         images = Gray.(images)
@@ -36,16 +36,16 @@ function Acquisition( # {{{
 end # }}}
 
 function Acquisition( # {{{
-    images::AbstractArray{T,3} where {T<:Color},
-    acquisitiontimestep::Unitful.Time,
+    images::AbstractArray{<:Color,3},
+    acquisitiontimestep::Time,
     NA,
     M,
     marker::FluorophoreMarker,
-    pixelsize::Unitful.Length,
+    pixelsize::Length,
 )
     return Acquisition(
         images,
-        range(0u"s"; length=size(images, 3), step=acquisitiontimestep),
+        range(0s; length=size(images, 3), step=acquisitiontimestep),
         NA,
         M,
         marker,

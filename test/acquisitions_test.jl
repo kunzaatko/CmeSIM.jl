@@ -1,7 +1,7 @@
 using CmeSIM.FluorophoreMarkers
 using CmeSIM.Acquisitions
 using Test
-using Unitful: s, μm, nm
+using Unitful: s, nm
 using Images
 
 FM = FluorophoreMarkers
@@ -30,7 +30,7 @@ FM = FluorophoreMarkers
         images_rgb = unreconstructedimages_rgb
 
         @test begin
-            acquisitiontimes = range(0s, 4s, 18)
+            acquisitiontimes = range(0s, 4s; length=18)
             typeof(Acquisition(images, acquisitiontimes, NA, M, marker, pixelsize)) ==
             Acquisition
         end
@@ -49,7 +49,7 @@ FM = FluorophoreMarkers
 
     @testset "simacquisition.jl" begin
         @test begin
-            acquisitiontimes = range(0s, 4s, 18)
+            acquisitiontimes = range(0s, 4s; length=18)
             typeof(SIMAcquisition(
                 reconstructedimages_rgb,
                 unreconstructedimages_rgb,

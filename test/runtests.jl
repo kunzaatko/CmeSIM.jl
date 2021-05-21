@@ -1,7 +1,7 @@
 using CmeSIM: Acquisitions, FluorophoreMarkers
 using Test
 using Images
-using Unitful: μm,s
+using Unitful: μm
 
 @testset "CmeSIM.jl" begin
     global unreconstructedimages = load("./resources/test_unreconstructed.tiff")

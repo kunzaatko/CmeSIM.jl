@@ -1,14 +1,14 @@
 using Images, AxisArrays
 using Base: OneTo
-using Unitful
+using Unitful: Time, Length, s
 
 # TODO: Make this be generic over type of SIM acquisition like so
 # SIMAcquisition{T} where T <: AbstractSIMType <19-05-21, kunzaatko> #
 struct SIMAcquisition <: AbstractAcquisition # {{{
     "Acquired reconstructed images"
-    reconstructedimages::AxisArray{T,3} where {T<:AbstractGray}
+    reconstructedimages::AxisArray{<:AbstractGray,3}
     "Acquired unreconstructed images stored with there acquisition times and orientations"
-    unreconstructedimages::AxisArray{T,3} where {T<:AbstractGray}
+    unreconstructedimages::AxisArray{<:AbstractGray,3}
     "Numerical aperature"
     NA::Real
     "Magnification"
@@ -16,17 +16,17 @@ struct SIMAcquisition <: AbstractAcquisition # {{{
     "Fluorophore marker"
     marker::FluorophoreMarker
     "Pixel size"
-    pixelsize::Unitful.Length
+    pixelsize::Length
 end # }}}
 
 function SIMAcquisition( # {{{
-    reconstructedimages::AbstractArray{T,3} where {T<:Color},
-    unreconstructedimages::AbstractArray{T,3} where {T<:Color},
-    acquisitiontimes::AbstractVector{T} where {T<:Unitful.Time},
+    reconstructedimages::AbstractArray{<:Color,3},
+    unreconstructedimages::AbstractArray{<:Color,3},
+    acquisitiontimes::AbstractVector{<:Time},
     NA,
     M,
     marker::FluorophoreMarker,
-    pixelsize::Unitful.Length,
+    pixelsize::Length,
 )
     if !(eltype(reconstructedimages) <: AbstractGray)
         reconstructedimages = Gray.(reconstructedimages)
@@ -56,18 +56,18 @@ function SIMAcquisition( # {{{
 end # }}}
 
 function SIMAcquisition( # {{{
-    reconstructedimages::AbstractArray{T,3} where {T<:Color},
-    unreconstructedimages::AbstractArray{T,3} where {T<:Color},
-    acquisitiontimestep::Unitful.Time,
+    reconstructedimages::AbstractArray{<:Color,3},
+    unreconstructedimages::AbstractArray{<:Color,3},
+    acquisitiontimestep::Time,
     NA,
     M,
     marker::FluorophoreMarker,
-    pixelsize::Unitful.Length,
+    pixelsize::Length,
 )
     return SIMAcquisition(
         reconstructedimages,
         unreconstructedimages,
-        range(0u"s"; length=size(unreconstructedimages, 3), step=acquisitiontimestep),
+        range(0s; length=size(unreconstructedimages, 3), step=acquisitiontimestep),
         NA,
         M,
         marker,
