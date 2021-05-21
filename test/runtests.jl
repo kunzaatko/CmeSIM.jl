@@ -4,10 +4,10 @@ using Images
 using Unitful: μm
 
 @testset "CmeSIM.jl" begin
-    global unreconstructedimages = load("./resources/test_unreconstructed.tiff")
-    global unreconstructedimages_rgb = load("./resources/test_unreconstructed_rgb.tiff")
-    global reconstructedimages = load("./resources/test_reconstructed.tiff")
-    global reconstructedimages_rgb = load("./resources/test_reconstructed_rgb.tiff")
+    global unreconstructedimages = load("./assets/test_unreconstructed.tiff")
+    global unreconstructedimages_rgb = load("./assets/test_unreconstructed_rgb.tiff")
+    global reconstructedimages = load("./assets/test_reconstructed.tiff")
+    global reconstructedimages_rgb = load("./assets/test_reconstructed_rgb.tiff")
     global NA = 1.49
     global M = 109
     global pixelsize = 10μm
