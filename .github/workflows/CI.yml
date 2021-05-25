@@ -30,8 +30,7 @@ jobs:
           version: ${{ matrix.version }}
           arch: ${{ matrix.arch }}
 
-      - name: Setup cache
-        uses: actions/cache@v1
+      - uses: actions/cache@v1
         env:
           cache-name: cache-artifacts
         with:
@@ -45,14 +44,10 @@ jobs:
       - name: Build package, test and process coverage
         uses: julia-actions/julia-buildpkg@v1
 
-      - uses: julia-actions/julia-runtest@v1
-      - uses: julia-actions/julia-processcoverage@v1
+      - run: julia -e 'Pkg.test("CmeSIM", coverage=true)'
 
       - name: Upload coverage
-        uses: coverallsapp/github-action@master
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN}}
-          path-to-lcov: lcov.info
+        run: julia -e 'using Pkg; Pkg.add("Coverage"); using Coverage; Coveralls.submit(process_folder())'
 
   docs:
     name: Documentation
