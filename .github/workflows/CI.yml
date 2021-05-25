@@ -44,8 +44,9 @@ jobs:
 
       - name: Build package, test and process coverage
         uses: julia-actions/julia-buildpkg@v1
-        uses: julia-actions/julia-runtest@v1
-        uses: julia-actions/julia-processcoverage@v1
+
+      - uses: julia-actions/julia-runtest@v1
+      - uses: julia-actions/julia-processcoverage@v1
 
       - name: Upload coverage
         uses: coverallsapp/github-action@master
